@@ -1,8 +1,34 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  FlatList,
+} from 'react-native';
+
+import { orange } from '../utils/colors';
+import getDecks from '../utils/deckdata';
+
+function DeckItem({ title, cards }) {
+  return (
+    <View style={{ flex: 1 }}>
+      <View style={styles.deckItem}>
+        <Text style={styles.deckTitle}>{title}</Text>
+        <Text>{cards}</Text>
+      </View>
+      <View style={styles.deckLine} />
+    </View>
+  );
+}
 
 class DeckList extends Component {
+  renderItem = ({ item }) => {
+    return <DeckItem key={item.title} {...item} />;
+  };
   render() {
+    const decks = getDecks();
+
     return (
       <View style={styles.container}>
         <Text>Home View</Text>
@@ -13,6 +39,12 @@ class DeckList extends Component {
         >
           <Text style={styles.btn}>To Deck Detail</Text>
         </TouchableOpacity>
+
+        <FlatList
+          data={decks}
+          renderItem={this.renderItem}
+          keyExtractor={(decks, title) => title}
+        />
       </View>
     );
   }
@@ -36,6 +68,30 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 5,
     //borderColor: '#000',
+  },
+  deckItem: {
+    flex: 1,
+    marginLeft: 0,
+    marginRight: 0,
+    marginTop: 10,
+    marginBottom: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+
+    //borderBottomColor: orange,
+    //borderBottomWidth: 1,
+  },
+  deckTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  deckLine: {
+    //flex: 1,
+    //marginTop: 5,
+    //marginBottom: 5,
+    borderBottomWidth: 1,
+    borderBottomColor: orange,
+    //width: 400,
   },
 });
 
