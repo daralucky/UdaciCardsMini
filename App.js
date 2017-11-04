@@ -1,8 +1,16 @@
 import React from 'react';
-import { StyleSheet, Text, View, Platform, StatusBar } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Platform,
+  StatusBar,
+  TouchableOpacity,
+} from 'react-native';
 import { TabNavigator, StackNavigator } from 'react-navigation';
 import { purple, white, red } from './utils/colors';
 import { Constants } from 'expo';
+import DeckDetail from './components/DeckDetail';
 
 function UdaciStatusBar({ backgroundColor, ...props }) {
   return (
@@ -12,10 +20,19 @@ function UdaciStatusBar({ backgroundColor, ...props }) {
   );
 }
 
-const Home = () => {
+const Home = ({ navigation }) => {
+  handlePress = () => {
+    alert('Hello');
+  };
   return (
     <View style={styles.container}>
-      <Text>Home</Text>
+      <Text>Home View</Text>
+
+      <TouchableOpacity
+        onPress={() => navigation.navigate('DeckDetail', { deckId: 12345 })}
+      >
+        <Text style={styles.btn}>To Deck Detail</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -44,12 +61,27 @@ const Tabs = TabNavigator(
   }
 );
 
+const MainNavigator = StackNavigator({
+  Home: {
+    screen: Tabs,
+  },
+  DeckDetail: {
+    screen: DeckDetail,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: purple,
+      },
+    },
+  },
+});
+
 export default class App extends React.Component {
   render() {
     return (
       <View style={{ flex: 1 }}>
         <UdaciStatusBar backgroundColor={red} barStyle="light-content" />
-        <Tabs />
+        <MainNavigator />
       </View>
     );
   }
@@ -58,9 +90,23 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    flexDirection: 'row', // optional
+    marginLeft: 10,
+    marginRight: 10,
+    //backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  btn: {
+    backgroundColor: '#E53224',
+    padding: 10,
+    paddingLeft: 20,
+    paddingRight: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 5,
+    //borderColor: '#000',
+  },
+  btnText: {
+    color: '#000',
   },
 });
