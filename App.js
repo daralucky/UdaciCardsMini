@@ -10,6 +10,8 @@ import {
 import { TabNavigator, StackNavigator } from 'react-navigation';
 import { purple, white, red } from './utils/colors';
 import { Constants } from 'expo';
+import DeckList from './components/DeckList';
+import DeckNew from './components/DeckNew';
 import DeckDetail from './components/DeckDetail';
 
 function UdaciStatusBar({ backgroundColor, ...props }) {
@@ -20,38 +22,19 @@ function UdaciStatusBar({ backgroundColor, ...props }) {
   );
 }
 
-const Home = ({ navigation }) => {
-  handlePress = () => {
-    alert('Hello');
-  };
-  return (
-    <View style={styles.container}>
-      <Text>Home View</Text>
-
-      <TouchableOpacity
-        onPress={() => navigation.navigate('DeckDetail', { deckId: 12345 })}
-      >
-        <Text style={styles.btn}>To Deck Detail</Text>
-      </TouchableOpacity>
-    </View>
-  );
-};
-
-const Dashboard = () => {
-  return (
-    <View style={styles.container}>
-      <Text>Dashboard</Text>
-    </View>
-  );
-};
-
 const Tabs = TabNavigator(
   {
     Home: {
-      screen: Home,
+      screen: DeckList,
+      navigationOptions: {
+        tabBarLabel: 'DECKS',
+      },
     },
-    Dashboard: {
-      screen: Dashboard,
+    NewDeck: {
+      screen: DeckNew,
+      navigationOptions: {
+        tabBarLabel: 'NEW DECK',
+      },
     },
   },
   {
