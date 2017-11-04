@@ -10,36 +10,31 @@ import {
 import { orange } from '../utils/colors';
 import getDecks from '../utils/deckdata';
 
-function DeckItem({ title, cards }) {
+function DeckItem({ navigation, title, cards }) {
   return (
     <View style={{ flex: 1 }}>
-      <View style={styles.deckItem}>
-        <Text style={styles.deckTitle}>{title}</Text>
-        <Text>{cards} cards</Text>
-      </View>
-      <View style={styles.deckLine} />
+      <TouchableOpacity
+        onPress={() => navigation.navigate('DeckDetail', { deckTitle: title })}
+      >
+        <View style={styles.deckItem}>
+          <Text style={styles.deckTitle}>{title}</Text>
+          <Text>{cards} cards</Text>
+        </View>
+        <View style={styles.deckLine} />
+      </TouchableOpacity>
     </View>
   );
 }
 
 class DeckList extends Component {
   renderItem = ({ item }) => {
-    return <DeckItem key={item.title} {...item} />;
+    return <DeckItem navigation={this.props.navigation} {...item} />;
   };
   render() {
     const decks = getDecks();
 
     return (
       <View style={styles.container}>
-        <Text>Home View</Text>
-
-        <TouchableOpacity
-          onPress={() =>
-            this.props.navigation.navigate('DeckDetail', { deckId: 12345 })}
-        >
-          <Text style={styles.btn}>To Deck Detail</Text>
-        </TouchableOpacity>
-
         <FlatList
           data={decks}
           renderItem={this.renderItem}

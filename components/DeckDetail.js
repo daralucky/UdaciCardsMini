@@ -4,10 +4,10 @@ import { NavigationActions } from 'react-navigation';
 
 class DeckDetail extends Component {
   static navigationOptions = ({ navigation }) => {
-    const { deckId } = navigation.state.params;
+    const { deckTitle } = navigation.state.params;
 
     return {
-      title: `Deck ID: ${deckId}`,
+      title: `Deck Title: ${deckTitle}`,
     };
   };
 
@@ -26,9 +26,10 @@ class DeckDetail extends Component {
     return (
       <View style={{ flex: 1, alignItems: 'center' }}>
         <Text>
-          Deck Detail - deckId: {this.props.navigation.state.params.deckId}
+          Deck Detail - deckTitle:{' '}
+          {this.props.navigation.state.params.deckTitle}
         </Text>
-        <Text>Screen key: {this.props.navigation.state.key}</Text>
+
         <TouchableOpacity onPress={this.handlePress}>
           <Text style={styles.btn}>Go Back</Text>
         </TouchableOpacity>

@@ -14,7 +14,14 @@ class DeckNew extends Component {
 
   createDeck() {
     alert(this.state.title);
+    //this.toHome();
   }
+
+  toHome = () => {
+    this.props.navigation.dispatch(
+      NavigationActions.back({ key: this.props.navigation.state.key })
+    );
+  };
 
   render() {
     return (
