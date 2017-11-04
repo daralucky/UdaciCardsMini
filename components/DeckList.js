@@ -15,7 +15,7 @@ function DeckItem({ title, cards }) {
     <View style={{ flex: 1 }}>
       <View style={styles.deckItem}>
         <Text style={styles.deckTitle}>{title}</Text>
-        <Text>{cards}</Text>
+        <Text>{cards} cards</Text>
       </View>
       <View style={styles.deckLine} />
     </View>
@@ -77,21 +77,17 @@ const styles = StyleSheet.create({
     marginBottom: 0,
     alignItems: 'center',
     justifyContent: 'center',
-
-    //borderBottomColor: orange,
-    //borderBottomWidth: 1,
   },
   deckTitle: {
     fontSize: 20,
     fontWeight: 'bold',
   },
   deckLine: {
-    //flex: 1,
-    //marginTop: 5,
-    //marginBottom: 5,
+    marginTop: 5,
+    marginBottom: 5,
     borderBottomWidth: 1,
     borderBottomColor: orange,
-    //width: 400,
+    width: 350,
   },
 });
 
