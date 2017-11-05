@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { NavigationActions } from 'react-navigation';
+import { getAllDecks, getSingleDeck } from '../utils/api';
 
 class DeckDetail extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -22,6 +23,11 @@ class DeckDetail extends Component {
     );
   };
 
+  getSingle = () => {
+    getSingleDeck('1509857756522');
+    console.log('single: ' + single);
+  };
+
   render() {
     return (
       <View style={{ flex: 1, alignItems: 'center' }}>
@@ -29,6 +35,8 @@ class DeckDetail extends Component {
           Deck Detail - deckTitle:{' '}
           {this.props.navigation.state.params.deckTitle}
         </Text>
+
+        <Text>Single Deck: {this.getSingle()}</Text>
 
         <TouchableOpacity onPress={this.handlePress}>
           <Text style={styles.btn}>Go Back</Text>

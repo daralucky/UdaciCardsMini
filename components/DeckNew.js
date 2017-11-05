@@ -8,13 +8,23 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 import { NavigationActions } from 'react-navigation';
+import { saveDeck } from '../utils/api';
+import { epochToString } from '../utils/helpers';
 
 class DeckNew extends Component {
   state = { title: '' };
 
   createDeck() {
-    alert(this.state.title);
-    //this.toHome();
+    const key = epochToString();
+    const deck = {
+      title: this.state.title,
+    };
+
+    //alert(JSON.stringify(deck, null, 2));
+
+    saveDeck({ key, deck });
+
+    this.toHome();
   }
 
   toHome = () => {
