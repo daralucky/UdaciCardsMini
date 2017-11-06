@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { addNewDeck } from '../actions';
 import {
   View,
   Text,
@@ -8,22 +10,13 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 import { NavigationActions } from 'react-navigation';
-import { saveDeck } from '../utils/api';
-import { epochToString } from '../utils/helpers';
 
 class DeckNew extends Component {
   state = { title: '' };
 
   createDeck() {
-    const key = epochToString();
-    const deck = {
-      title: this.state.title,
-    };
-
-    //alert(JSON.stringify(deck, null, 2));
-
-    saveDeck({ key, deck });
-
+    this.props.addNewDeck(this.state.title);
+    this.setState({ title: '' });
     this.toHome();
   }
 
@@ -84,4 +77,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DeckNew;
+export default connect(null, { addNewDeck })(DeckNew);

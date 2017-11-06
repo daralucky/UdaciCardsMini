@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { myFirstFetch } from '../actions';
+import { fetchDecksFromAPI } from '../actions';
 import {
   View,
   Text,
@@ -10,9 +10,10 @@ import {
 } from 'react-native';
 
 import { orange } from '../utils/colors';
-import getDecks from '../utils/deckdata';
 
-function DeckItem({ navigation, title, cards }) {
+import { clearAllRecordsFromStorage } from '../utils/api';
+
+function DeckItem({ navigation, title, questions }) {
   return (
     <View style={{ flex: 1 }}>
       <TouchableOpacity
@@ -20,7 +21,7 @@ function DeckItem({ navigation, title, cards }) {
       >
         <View style={styles.deckItem}>
           <Text style={styles.deckTitle}>{title}</Text>
-          <Text>{cards} cards</Text>
+          <Text>{questions.length} cards</Text>
         </View>
         <View style={styles.deckLine} />
       </TouchableOpacity>
@@ -36,7 +37,7 @@ class DeckList extends Component {
     return <DeckItem navigation={this.props.navigation} {...item} />;
   };
   render() {
-    const decks = getDecks();
+    const { decks } = this.props;
 
     return (
       <View style={styles.container}>
@@ -45,6 +46,9 @@ class DeckList extends Component {
           renderItem={this.renderItem}
           keyExtractor={(decks, title) => title}
         />
+        <TouchableOpacity onPress={() => clearAllRecordsFromStorage()}>
+          <Text style={styles.btn}>Delete All Data</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -91,15 +95,23 @@ const styles = StyleSheet.create({
   },
 });
 
-function mapStateToProps(decks) {
-  return {
-    decks,
-  };
+function mapStateToProps(state) {
+  console.log('state.decks:' + JSON.stringify(state.decks, null, 2));
+
+  let decks = [];
+
+  for (const [key, value] of Object.entries(state.decks)) {
+    decks.push({ key: key, ...value });
+  }
+
+  console.log('DeckList:' + JSON.stringify(decks, null, 2));
+
+  return { decks };
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchDecks: () => dispatch(myFirstFetch()),
+    fetchDecks: () => dispatch(fetchDecksFromAPI()),
   };
 };
 

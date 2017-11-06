@@ -1,7 +1,11 @@
 import { AsyncStorage } from 'react-native';
 import { DECK_STORAGE_KEY } from '../constants/index';
 
-export function saveDeck({ key, deck }) {
+export function getAllDecksFromStorage() {
+  return AsyncStorage.getItem(DECK_STORAGE_KEY).then(res => JSON.parse(res));
+}
+
+export function saveDeckToStorage({ key, deck }) {
   console.log(JSON.stringify(key, null, 2));
   console.log(JSON.stringify(deck, null, 2));
 
@@ -13,8 +17,10 @@ export function saveDeck({ key, deck }) {
   );
 }
 
+/*
+
 export async function getSingleDeck(key) {
-  /*
+
   let data = await AsyncStorage.getItem(DECK_STORAGE_KEY).then(res => {
     //const data = JSON.parse(results);
     return JSON.parse(res);
@@ -24,7 +30,7 @@ export async function getSingleDeck(key) {
   });
 
   return data[key];
-  */
+
 
   const value = await AsyncStorage.getItem(DECK_STORAGE_KEY);
 
@@ -38,18 +44,9 @@ export async function getSingleDeck(key) {
 
   //return value[key];
 }
+*/
 
-export function getAllDecks() {
-  AsyncStorage.getItem(DECK_STORAGE_KEY).then(results => {
-    if (results !== null) {
-      console.log(results);
-    }
-
-    //return results;
-  });
-}
-
-export function clearAll() {
+export function clearAllRecordsFromStorage() {
   AsyncStorage.getAllKeys((err, keys) => {
     console.log(JSON.stringify(keys, null, 2));
     AsyncStorage.multiRemove(keys, err => {

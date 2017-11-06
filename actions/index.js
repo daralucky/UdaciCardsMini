@@ -1,38 +1,37 @@
 import * as ActionTypes from '../constants/ActionTypes';
-import { DECK_STORAGE_KEY } from '../constants/index';
-import { AsyncStorage } from 'react-native';
+import * as API from '../utils/api';
+import { epochToString } from '../utils/helpers';
 
-export const addNewDeck = deck => {
+export const addNewDeck = title => {
+  const newDeck = {
+    key: epochToString(),
+    deck: {
+      title: title,
+      questions: [],
+    },
+  };
+
+  //add new deck to Storage
+  API.saveDeckToStorage(newDeck);
+
   return {
-    type: ActionTypes.ADD_DECK,
+    type: ActionTypes.ADD_NEW_DECK,
     payload: {
-      deck,
+      newDeck,
     },
   };
 };
 
-export const getAllDecks = decks => {
+export const receiveDecks = decks => {
   return {
-    type: ActionTypes.GET_ALL_DECKS,
+    type: ActionTypes.RECEIVE_DECKS,
     decks,
   };
 };
 
-//function ()
-
-const fetchDeckFromStorage = (res, dispatch) => {
-  dispatch(getAllDecks(res));
-};
-
-export const myFirstFetch = () => dispatch => {
-  AsyncStorage.getItem(DECK_STORAGE_KEY).then(results => {
-    //if (results !== null) {
-    console.log(
-      'myFirstFetch: ' + JSON.stringify(JSON.parse(results), null, 2)
-    );
-    dispatch(getAllDecks(JSON.parse(results)));
-    //}
+export const fetchDecksFromAPI = () => dispatch => {
+  API.getAllDecksFromStorage().then(decks => {
+    //console.log('decks: ' + JSON.stringify(decks, null, 2));
+    dispatch(receiveDecks(decks));
   });
-
-  //dispatch(getAllDecks({ hello: 'World' }));
 };

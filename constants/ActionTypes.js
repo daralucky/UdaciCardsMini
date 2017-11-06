@@ -1,3 +1,3 @@
-export const ADD_DECK = 'ADD_DECK';
+export const ADD_NEW_DECK = 'ADD_NEW_DECK';
 export const GET_DECK = 'GET_DECK';
-export const GET_ALL_DECKS = 'GET_ALL_DECKS';
+export const RECEIVE_DECKS = 'RECEIVE_DECKS';
