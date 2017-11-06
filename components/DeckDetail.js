@@ -24,8 +24,8 @@ class DeckDetail extends Component {
   };
 
   getSingle = () => {
-    getSingleDeck('1509857756522');
-    console.log('single: ' + single);
+    const single = getSingleDeck('1509857756522');
+    console.log('single: ' + JSON.stringify(single, null, 2));
   };
 
   render() {

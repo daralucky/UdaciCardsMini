@@ -1,5 +1,6 @@
 import * as ActionTypes from '../constants/ActionTypes';
 import { DECK_STORAGE_KEY } from '../constants/index';
+import { AsyncStorage } from 'react-native';
 
 export const addNewDeck = deck => {
   return {
@@ -17,19 +18,21 @@ export const getAllDecks = decks => {
   };
 };
 
-export const fetchDeckFromStorage = async => dispatch => {
-    try {
-        const value = await AsyncStorage.getItem(DECK_STORAGE_KEY);
-        if (value !== null){
-            // We have data!!
-            //console.log(value);
+//function ()
 
-           // call to action
-            dispatch(getAllDecks(JSON.parse(value)));
+const fetchDeckFromStorage = (res, dispatch) => {
+  dispatch(getAllDecks(res));
+};
 
-        }
-      } catch (error) {
-        console.log('ERROR: FAILED TO GET CONTENT FROM STORAGE.');
-      }
+export const myFirstFetch = () => dispatch => {
+  AsyncStorage.getItem(DECK_STORAGE_KEY).then(results => {
+    //if (results !== null) {
+    console.log(
+      'myFirstFetch: ' + JSON.stringify(JSON.parse(results), null, 2)
+    );
+    dispatch(getAllDecks(JSON.parse(results)));
+    //}
+  });
 
+  //dispatch(getAllDecks({ hello: 'World' }));
 };

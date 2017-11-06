@@ -1,4 +1,5 @@
 import React from 'react';
+import { Provider } from 'react-redux';
 import {
   StyleSheet,
   Text,
@@ -13,6 +14,7 @@ import { Constants } from 'expo';
 import DeckList from './components/DeckList';
 import DeckNew from './components/DeckNew';
 import DeckDetail from './components/DeckDetail';
+import configureStore from './store/configureStore';
 
 function UdaciStatusBar({ backgroundColor, ...props }) {
   return (
@@ -59,13 +61,17 @@ const MainNavigator = StackNavigator({
   },
 });
 
+const store = configureStore();
+
 export default class App extends React.Component {
   render() {
     return (
-      <View style={{ flex: 1 }}>
-        <UdaciStatusBar backgroundColor={red} barStyle="light-content" />
-        <MainNavigator />
-      </View>
+      <Provider store={store}>
+        <View style={{ flex: 1 }}>
+          <UdaciStatusBar backgroundColor={red} barStyle="light-content" />
+          <MainNavigator />
+        </View>
+      </Provider>
     );
   }
 }

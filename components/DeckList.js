@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { myFirstFetch } from '../actions';
 import {
   View,
   Text,
@@ -27,6 +29,9 @@ function DeckItem({ navigation, title, cards }) {
 }
 
 class DeckList extends Component {
+  componentDidMount() {
+    this.props.fetchDecks();
+  }
   renderItem = ({ item }) => {
     return <DeckItem navigation={this.props.navigation} {...item} />;
   };
@@ -86,4 +91,16 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DeckList;
+function mapStateToProps(decks) {
+  return {
+    decks,
+  };
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchDecks: () => dispatch(myFirstFetch()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(DeckList);

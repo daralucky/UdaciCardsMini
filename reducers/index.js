@@ -1,14 +1,8 @@
-import { GET_ALL_DECKS } from '../constants/ActionTypes';
+import { combineReducers } from 'redux';
+import deck from './deck';
 
-function decks(state = [], action) {
-  switch (action.type) {
-    case GET_ALL_DECKS:
-      const { decks } = action;
-      return { ...state, ...decks };
+const rootReducer = combineReducers({
+  deck,
+});
 
-    default:
-      return state;
-  }
-}
-
-export default decks;
+export default rootReducer;
