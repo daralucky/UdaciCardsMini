@@ -13,15 +13,15 @@ import { orange } from '../utils/colors';
 
 import { clearAllRecordsFromStorage } from '../utils/api';
 
-function DeckItem({ navigation, title, questions }) {
+function DeckItem({ navigation, deck }) {
   return (
     <View style={{ flex: 1 }}>
       <TouchableOpacity
-        onPress={() => navigation.navigate('DeckDetail', { deckTitle: title })}
+        onPress={() => navigation.navigate('DeckDetail', { currentDeck: deck })}
       >
         <View style={styles.deckItem}>
-          <Text style={styles.deckTitle}>{title}</Text>
-          <Text>{questions.length} cards</Text>
+          <Text style={styles.deckTitle}>{deck.title}</Text>
+          <Text>{deck.questions.length} cards</Text>
         </View>
         <View style={styles.deckLine} />
       </TouchableOpacity>
@@ -34,7 +34,7 @@ class DeckList extends Component {
     this.props.fetchDecks();
   }
   renderItem = ({ item }) => {
-    return <DeckItem navigation={this.props.navigation} {...item} />;
+    return <DeckItem navigation={this.props.navigation} deck={item} />;
   };
   render() {
     const { decks } = this.props;
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state) {
-  console.log('state.decks:' + JSON.stringify(state.decks, null, 2));
+  //console.log('state.decks:' + JSON.stringify(state.decks, null, 2));
 
   let decks = [];
 
@@ -104,7 +104,7 @@ function mapStateToProps(state) {
     decks.push({ key: key, ...value });
   }
 
-  console.log('DeckList:' + JSON.stringify(decks, null, 2));
+  //console.log('DeckList:' + JSON.stringify(decks, null, 2));
 
   return { decks };
 }
