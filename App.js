@@ -14,6 +14,7 @@ import { Constants } from 'expo';
 import DeckList from './components/DeckList';
 import DeckNew from './components/DeckNew';
 import DeckDetail from './components/DeckDetail';
+import CardNew from './components/CardNew';
 import configureStore from './store/configureStore';
 
 function UdaciStatusBar({ backgroundColor, ...props }) {
@@ -56,6 +57,15 @@ const MainNavigator = StackNavigator({
       headerTintColor: white,
       headerStyle: {
         backgroundColor: purple,
+      },
+    },
+  },
+  CardNew: {
+    screen: CardNew,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: '#f0ad4e',
       },
     },
   },

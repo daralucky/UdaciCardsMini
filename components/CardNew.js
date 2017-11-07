@@ -11,8 +11,14 @@ import {
 } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 
-class DeckNew extends Component {
-  state = { title: '' };
+class CardNew extends Component {
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: `Add Card`,
+    };
+  };
+
+  state = { question: '', answer: '' };
 
   createDeck() {
     this.props.addNewDeck(this.state.title);
@@ -29,15 +35,20 @@ class DeckNew extends Component {
   render() {
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
-        <Text style={styles.question}>What is the title of your deck?</Text>
         <TextInput
-          value={this.state.title}
-          onChangeText={text => this.setState({ title: text })}
+          value={this.state.question}
+          onChangeText={text => this.setState({ question: text })}
           style={styles.input}
-          placeholder="Deck Title"
+          placeholder="Question"
+        />
+        <TextInput
+          value={this.state.answer}
+          onChangeText={text => this.setState({ answer: text })}
+          style={styles.input}
+          placeholder="Answer"
         />
         <TouchableOpacity
-          style={styles.btnSuccess}
+          style={styles.btnWarning}
           onPress={() => this.createDeck()}
         >
           <Text style={styles.btnText}>Submit</Text>
@@ -60,9 +71,9 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: 'bold',
   },
-  btnSuccess: {
-    backgroundColor: '#5cb85c',
-    borderColor: '#4cae4c',
+  btnWarning: {
+    backgroundColor: '#f0ad4e',
+    borderColor: '#eea236',
     width: 150,
     margin: 5,
     padding: 10,
@@ -74,7 +85,7 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   input: {
-    width: 200,
+    width: 300,
     height: 44,
     padding: 8,
     borderWidth: 1,
@@ -83,4 +94,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect(null, { addNewDeck })(DeckNew);
+export default connect(null, { addNewDeck })(CardNew);

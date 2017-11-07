@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { getAllDecks, getSingleDeck } from '../utils/api';
+import CardNew from './CardNew';
 
 class DeckDetail extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -23,11 +24,6 @@ class DeckDetail extends Component {
     );
   };
 
-  getSingle = () => {
-    //const single = getSingleDeck('1509857756522');
-    //console.log('single: ' + JSON.stringify(single, null, 2));
-  };
-
   render() {
     const currentDeck = this.props.navigation.state.params.currentDeck;
     console.log('currentDeck:' + JSON.stringify(currentDeck, null, 2));
@@ -39,8 +35,21 @@ class DeckDetail extends Component {
           <Text>{currentDeck.questions.length} cards</Text>
         </View>
         <View style={styles.btnGroup}>
-          <TouchableOpacity onPress={this.handlePress}>
-            <Text style={styles.btn}>Go Back</Text>
+          <TouchableOpacity
+            style={styles.btnWarning}
+            onPress={() =>
+              this.props.navigation.navigate('CardNew', {
+                currentDeck,
+              })}
+          >
+            <Text style={styles.btnText}> Add Card</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.btnSuccess}
+            onPress={this.handlePress}
+          >
+            <Text style={styles.btnText}>Start Quiz</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -58,7 +67,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   deckContainer: {
-    flex: 3,
+    flex: 5,
     marginLeft: 10,
     marginRight: 10,
     //backgroundColor: '#fff',
@@ -72,16 +81,48 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     //alignSelf: 'flex-end',
   },
-  btn: {
-    //flex: 1,
-    backgroundColor: '#E53224',
+  btnPrimary: {
+    backgroundColor: '#337ab7',
+    borderColor: '#2e6da4',
+    width: 150,
+    margin: 5,
     padding: 10,
-    paddingLeft: 20,
-    paddingRight: 20,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 5,
-    //borderColor: '#000',
+  },
+  btnSuccess: {
+    backgroundColor: '#5cb85c',
+    borderColor: '#4cae4c',
+    width: 150,
+    margin: 5,
+    padding: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 5,
+  },
+  btnWarning: {
+    backgroundColor: '#f0ad4e',
+    borderColor: '#eea236',
+    width: 150,
+    margin: 5,
+    padding: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 5,
+  },
+  btnDanger: {
+    backgroundColor: '#d9534f',
+    borderColor: '#d43f3a',
+    width: 150,
+    margin: 5,
+    padding: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 5,
+  },
+  btnText: {
+    color: '#fff',
   },
   deckTitle: {
     fontSize: 20,
