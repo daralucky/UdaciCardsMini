@@ -8,9 +8,7 @@ import {
   StyleSheet,
   FlatList,
 } from 'react-native';
-
-import { orange } from '../utils/colors';
-
+import myStyles from '../utils/styles';
 import { clearAllRecordsFromStorage } from '../utils/api';
 
 function DeckItem({ navigation, deck }) {
@@ -19,11 +17,11 @@ function DeckItem({ navigation, deck }) {
       <TouchableOpacity
         onPress={() => navigation.navigate('DeckDetail', { currentDeck: deck })}
       >
-        <View style={styles.deckItem}>
-          <Text style={styles.deckTitle}>{deck.title}</Text>
+        <View style={myStyles.deckItem}>
+          <Text style={myStyles.deckTitle}>{deck.title}</Text>
           <Text>{deck.questions.length} cards</Text>
         </View>
-        <View style={styles.deckLine} />
+        <View style={myStyles.deckLine} />
       </TouchableOpacity>
     </View>
   );
@@ -40,60 +38,22 @@ class DeckList extends Component {
     const { decks } = this.props;
 
     return (
-      <View style={styles.container}>
+      <View style={myStyles.container}>
         <FlatList
           data={decks}
           renderItem={this.renderItem}
           keyExtractor={(decks, title) => title}
         />
-        <TouchableOpacity onPress={() => clearAllRecordsFromStorage()}>
-          <Text style={styles.btn}>Delete All Data</Text>
+        <TouchableOpacity
+          style={myStyles.btnDanger}
+          onPress={() => clearAllRecordsFromStorage()}
+        >
+          <Text style={myStyles.btnText}>Delete All Data</Text>
         </TouchableOpacity>
       </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginLeft: 10,
-    marginRight: 10,
-    //backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  btn: {
-    backgroundColor: '#E53224',
-    padding: 10,
-    paddingLeft: 20,
-    paddingRight: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 5,
-    //borderColor: '#000',
-  },
-  deckItem: {
-    flex: 1,
-    marginLeft: 0,
-    marginRight: 0,
-    marginTop: 10,
-    marginBottom: 0,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  deckTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  deckLine: {
-    marginTop: 5,
-    marginBottom: 5,
-    borderBottomWidth: 1,
-    borderBottomColor: orange,
-    width: 350,
-  },
-});
 
 function mapStateToProps(state) {
   //console.log('state.decks:' + JSON.stringify(state.decks, null, 2));

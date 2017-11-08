@@ -10,6 +10,7 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 import { NavigationActions } from 'react-navigation';
+import myStyles from '../utils/styles';
 
 class CardNew extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -34,64 +35,28 @@ class CardNew extends Component {
 
   render() {
     return (
-      <KeyboardAvoidingView behavior="padding" style={styles.container}>
+      <KeyboardAvoidingView behavior="padding" style={myStyles.container}>
         <TextInput
           value={this.state.question}
           onChangeText={text => this.setState({ question: text })}
-          style={styles.input}
+          style={myStyles.input}
           placeholder="Question"
         />
         <TextInput
           value={this.state.answer}
           onChangeText={text => this.setState({ answer: text })}
-          style={styles.input}
+          style={myStyles.input}
           placeholder="Answer"
         />
         <TouchableOpacity
-          style={styles.btnWarning}
+          style={myStyles.btnWarning}
           onPress={() => this.createDeck()}
         >
-          <Text style={styles.btnText}>Submit</Text>
+          <Text style={myStyles.btnText}>Submit</Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginLeft: 10,
-    marginRight: 10,
-    //backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  question: {
-    fontSize: 22,
-    fontWeight: 'bold',
-  },
-  btnWarning: {
-    backgroundColor: '#f0ad4e',
-    borderColor: '#eea236',
-    width: 150,
-    margin: 5,
-    padding: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 5,
-  },
-  btnText: {
-    color: '#fff',
-  },
-  input: {
-    width: 300,
-    height: 44,
-    padding: 8,
-    borderWidth: 1,
-    borderColor: '#757575',
-    margin: 10,
-  },
-});
 
 export default connect(null, { addNewDeck })(CardNew);
