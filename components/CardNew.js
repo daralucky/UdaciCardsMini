@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addNewDeck } from '../actions';
+import { addNewCard } from '../actions';
 import {
   View,
   Text,
@@ -8,8 +8,8 @@ import {
   StyleSheet,
   TextInput,
   KeyboardAvoidingView,
+  Keyboard,
 } from 'react-native';
-import { NavigationActions } from 'react-navigation';
 import myStyles from '../utils/styles';
 
 class CardNew extends Component {
@@ -21,19 +21,27 @@ class CardNew extends Component {
 
   state = { question: '', answer: '' };
 
-  createDeck() {
-    this.props.addNewDeck(this.state.title);
-    this.setState({ title: '' });
-    this.toHome();
+  createCard(key) {
+    //hide keyboard
+    Keyboard.dismiss();
+
+    this.props.addNewCard(key, this.state.question, this.state.answer);
+
+    this.setState({ question: '' });
+    this.setState({ answer: '' });
+
+    this.toCurrentDeck();
   }
 
-  toHome = () => {
-    this.props.navigation.dispatch(
-      NavigationActions.back({ key: this.props.navigation.state.key })
-    );
+  toCurrentDeck = () => {
+    this.props.navigation.navigate('DeckDetail', {
+      currentDeck: this.props.navigation.state.params.currentDeck,
+    });
   };
 
   render() {
+    const currentDeck = this.props.navigation.state.params.currentDeck;
+    //console.log('currentDeck:' + JSON.stringify(currentDeck, null, 2));
     return (
       <KeyboardAvoidingView behavior="padding" style={myStyles.container}>
         <TextInput
@@ -50,7 +58,7 @@ class CardNew extends Component {
         />
         <TouchableOpacity
           style={myStyles.btnWarning}
-          onPress={() => this.createDeck()}
+          onPress={() => this.createCard(currentDeck.key)}
         >
           <Text style={myStyles.btnText}>Submit</Text>
         </TouchableOpacity>
@@ -59,4 +67,4 @@ class CardNew extends Component {
   }
 }
 
-export default connect(null, { addNewDeck })(CardNew);
+export default connect(null, { addNewCard })(CardNew);

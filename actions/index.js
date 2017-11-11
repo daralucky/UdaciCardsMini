@@ -2,6 +2,24 @@ import * as ActionTypes from '../constants/ActionTypes';
 import * as API from '../utils/api';
 import { epochToString } from '../utils/helpers';
 
+export const addNewCard = (key, question, answer) => {
+  const newCard = {
+    question,
+    answer,
+  };
+
+  //add new Card to Storage
+  API.addCardToStorage({ key, newCard });
+
+  return {
+    type: ActionTypes.ADD_NEW_CARD,
+    payload: {
+      key,
+      newCard,
+    },
+  };
+};
+
 export const addNewDeck = title => {
   const newDeck = {
     key: epochToString(),

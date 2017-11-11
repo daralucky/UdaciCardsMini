@@ -47,29 +47,34 @@ const Tabs = TabNavigator(
   }
 );
 
-const MainNavigator = StackNavigator({
-  Home: {
-    screen: Tabs,
-  },
-  DeckDetail: {
-    screen: DeckDetail,
-    navigationOptions: {
-      headerTintColor: Color.white,
-      headerStyle: {
-        backgroundColor: Color.purple,
+const MainNavigator = StackNavigator(
+  {
+    Home: {
+      screen: Tabs,
+    },
+    DeckDetail: {
+      screen: DeckDetail,
+      navigationOptions: {
+        headerTintColor: Color.white,
+        headerStyle: {
+          backgroundColor: Color.purple,
+        },
+      },
+    },
+    CardNew: {
+      screen: CardNew,
+      navigationOptions: {
+        headerTintColor: Color.white,
+        headerStyle: {
+          backgroundColor: Color.warningColor,
+        },
       },
     },
   },
-  CardNew: {
-    screen: CardNew,
-    navigationOptions: {
-      headerTintColor: Color.white,
-      headerStyle: {
-        backgroundColor: Color.warningColor,
-      },
-    },
-  },
-});
+  {
+    headerMode: 'screen',
+  }
+);
 
 const store = configureStore();
 

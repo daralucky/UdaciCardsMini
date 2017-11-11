@@ -27,7 +27,7 @@ class DeckDetail extends Component {
 
   render() {
     const currentDeck = this.props.navigation.state.params.currentDeck;
-    console.log('currentDeck:' + JSON.stringify(currentDeck, null, 2));
+    //console.log('currentDeck:' + JSON.stringify(currentDeck, null, 2));
 
     return (
       <View style={myStyles.container}>
