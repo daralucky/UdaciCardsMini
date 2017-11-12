@@ -16,7 +16,6 @@ class Quiz extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      score: 0,
       cardIndex: 0,
       quizzes: [],
       currentQuiz: {
@@ -25,6 +24,8 @@ class Quiz extends Component {
         btnText: '',
       },
     };
+
+    this.myScore = 0;
   }
 
   componentDidMount() {
@@ -68,14 +69,6 @@ class Quiz extends Component {
   };
 
   toggleQA = () => {
-    console.log(
-      'this.state.cardIndex:' + JSON.stringify(this.state.cardIndex, null, 2)
-    );
-    console.log(
-      'this.state.currentQuiz.qa:' +
-        JSON.stringify(this.state.currentQuiz.qa, null, 2)
-    );
-
     if (this.state.currentQuiz.qa == 1) {
       this.setState({
         currentQuiz: {
@@ -95,19 +88,25 @@ class Quiz extends Component {
     }
   };
 
+  correctAnswer = () => {
+    //update score
+    this.myScore++;
+
+    //show next question
+    this.showNextQuiz();
+  };
+
+  incorrectAnswer = () => {
+    //do nothing just show next question
+    this.showNextQuiz();
+  };
+
   showNextQuiz = () => {
-    console.log(
-      'this.state.cardIndex:' + JSON.stringify(this.state.cardIndex, null, 2)
-    );
-
-    console.log(
-      'quizzes(length - 1): ' +
-        JSON.stringify(this.state.quizzes.length - 1, null, 2)
-    );
-
     if (this.state.cardIndex == this.state.quizzes.length - 1) {
       this.props.navigation.navigate('QuizResult', {
         currentDeck: this.props.navigation.state.params.currentDeck,
+        quizNumber: this.state.quizzes.length,
+        score: this.myScore,
       });
     } else {
       const newIndex = this.state.cardIndex + 1;
@@ -121,27 +120,18 @@ class Quiz extends Component {
         },
       }));
     }
-
-    console.log(
-      'AFTER -- this.state.cardIndex:' +
-        JSON.stringify(this.state.cardIndex, null, 2)
-    );
-    console.log(
-      'this.state.currentQuiz.qa:' +
-        JSON.stringify(this.state.currentQuiz.qa, null, 2)
-    );
   };
 
   render() {
     const currentDeck = this.props.navigation.state.params.currentDeck;
-    //const quiz = currentDeck.questions;
-    //console.log('quiz:' + JSON.stringify(quiz, null, 2));
-
-    //const currentQuiz = currentDeck.questions[this.state.cardIndex];
-    //console.log('currentQuiz:' + JSON.stringify(currentQuiz, null, 2));
 
     return (
       <View style={myStyles.container}>
+        <View>
+          <Text>
+            Question {this.state.cardIndex + 1} Of {this.state.quizzes.length}
+          </Text>
+        </View>
         <View style={myStyles.deckContainer}>
           <Text style={myStyles.deckTitle}>
             {this.state.currentQuiz.header}
@@ -158,17 +148,14 @@ class Quiz extends Component {
         <View style={myStyles.btnGroup}>
           <TouchableOpacity
             style={myStyles.btnSuccess}
-            onPress={() => this.showNextQuiz()}
+            onPress={() => this.correctAnswer()}
           >
             <Text style={myStyles.btnText}> Correct</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={myStyles.btnDanger}
-            onPress={() =>
-              this.props.navigation.navigate('Quiz', {
-                currentDeck,
-              })}
+            onPress={() => this.incorrectAnswer()}
           >
             <Text style={myStyles.btnText}>Incorrect</Text>
           </TouchableOpacity>

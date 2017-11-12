@@ -16,12 +16,17 @@ class QuizResult extends Component {
 
   render() {
     const currentDeck = this.props.navigation.state.params.currentDeck;
-    //console.log('currentDeck:' + JSON.stringify(currentDeck, null, 2));
+    const quizNumber = this.props.navigation.state.params.quizNumber;
+    const score = this.props.navigation.state.params.score;
+
+    const scoreFormat = Math.ceil(score * 100 / quizNumber) + '%';
 
     return (
       <View style={myStyles.container}>
         <View style={myStyles.deckContainer}>
-          <Text style={myStyles.deckTitle}>Your Score: 99% correct.</Text>
+          <Text style={myStyles.deckTitle}>
+            Your got {scoreFormat} correct answers.
+          </Text>
         </View>
         <View style={myStyles.btnGroup}>
           <TouchableOpacity
