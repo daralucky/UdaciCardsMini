@@ -5,12 +5,12 @@ import { getAllDecks, getSingleDeck } from '../utils/api';
 import CardNew from './CardNew';
 import myStyles from '../utils/styles';
 
-class DeckDetail extends Component {
+class QuizResult extends Component {
   static navigationOptions = ({ navigation }) => {
-    const { title } = navigation.state.params.currentDeck;
+    //const { title } = navigation.state.params.currentDeck;
 
     return {
-      title: `${title}`,
+      title: `Quiz Result`,
     };
   };
 
@@ -21,28 +21,27 @@ class DeckDetail extends Component {
     return (
       <View style={myStyles.container}>
         <View style={myStyles.deckContainer}>
-          <Text style={myStyles.deckTitle}>{currentDeck.title}</Text>
-          <Text>{currentDeck.questions.length} cards</Text>
+          <Text style={myStyles.deckTitle}>Your Score: 99% correct.</Text>
         </View>
         <View style={myStyles.btnGroup}>
           <TouchableOpacity
             style={myStyles.btnWarning}
             onPress={() =>
-              this.props.navigation.navigate('CardNew', {
+              this.props.navigation.navigate('Quiz', {
                 currentDeck,
               })}
           >
-            <Text style={myStyles.btnText}> Add Card</Text>
+            <Text style={myStyles.btnText}>Restart Quiz</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={myStyles.btnSuccess}
             onPress={() =>
-              this.props.navigation.navigate('Quiz', {
+              this.props.navigation.navigate('DeckDetail', {
                 currentDeck,
               })}
           >
-            <Text style={myStyles.btnText}>Start Quiz</Text>
+            <Text style={myStyles.btnText}>Back to Deck</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -50,4 +49,4 @@ class DeckDetail extends Component {
   }
 }
 
-export default DeckDetail;
+export default QuizResult;

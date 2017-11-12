@@ -1,5 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
+import configureStore from './store/configureStore';
 import {
   StyleSheet,
   Text,
@@ -15,7 +16,8 @@ import DeckList from './components/DeckList';
 import DeckNew from './components/DeckNew';
 import DeckDetail from './components/DeckDetail';
 import CardNew from './components/CardNew';
-import configureStore from './store/configureStore';
+import Quiz from './components/Quiz';
+import QuizResult from './components/QuizResult';
 
 function UdaciStatusBar({ backgroundColor, ...props }) {
   return (
@@ -67,6 +69,24 @@ const MainNavigator = StackNavigator(
         headerTintColor: Color.white,
         headerStyle: {
           backgroundColor: Color.warningColor,
+        },
+      },
+    },
+    Quiz: {
+      screen: Quiz,
+      navigationOptions: {
+        headerTintColor: Color.white,
+        headerStyle: {
+          backgroundColor: Color.successColor,
+        },
+      },
+    },
+    QuizResult: {
+      screen: QuizResult,
+      navigationOptions: {
+        headerTintColor: Color.white,
+        headerStyle: {
+          backgroundColor: Color.primaryColor,
         },
       },
     },
