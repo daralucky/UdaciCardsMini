@@ -8,7 +8,7 @@ export const addNewCard = (key, question, answer) => {
     answer,
   };
 
-  //add new Card to Storage
+  // add new Card to Storage
   API.addCardToStorage({ key, newCard });
 
   return {
@@ -24,12 +24,12 @@ export const addNewDeck = title => {
   const newDeck = {
     key: epochToString(),
     deck: {
-      title: title,
+      title,
       questions: [],
     },
   };
 
-  //add new deck to Storage
+  // add new deck to Storage
   API.saveDeckToStorage(newDeck);
 
   return {
@@ -49,7 +49,7 @@ export const receiveDecks = decks => {
 
 export const fetchDecksFromAPI = () => dispatch => {
   API.getAllDecksFromStorage().then(decks => {
-    //console.log('decks: ' + JSON.stringify(decks, null, 2));
+    // console.log('decks: ' + JSON.stringify(decks, null, 2));
     dispatch(receiveDecks(decks));
   });
 };

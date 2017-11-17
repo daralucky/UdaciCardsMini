@@ -1,25 +1,25 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { View, Text, TouchableOpacity, Keyboard } from 'react-native';
 import { addNewCard } from '../actions';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  TextInput,
-  KeyboardAvoidingView,
-  Keyboard,
-} from 'react-native';
 import myStyles from '../utils/styles';
 
 class Quiz extends Component {
+  static navigationOptions = () => {
+    return {
+      title: `Quiz`,
+    };
+  };
+
   constructor(props) {
     super(props);
     this.state = {
+      question: '',
+      answer: '',
       cardIndex: 0,
       quizzes: [],
       currentQuiz: {
-        qa: 0, //q=0, a=1
+        qa: 0, // q=0, a=1
         header: '',
         btnText: '',
       },
@@ -30,8 +30,8 @@ class Quiz extends Component {
 
   componentDidMount() {
     const quiz = this.props.navigation.state.params.currentDeck.questions;
-    console.log('quiz:' + JSON.stringify(quiz, null, 2));
 
+    // console.log('quiz:' + JSON.stringify(quiz, null, 2));
     this.setState({
       currentQuiz: {
         qa: 0,
@@ -42,16 +42,8 @@ class Quiz extends Component {
     });
   }
 
-  static navigationOptions = ({ navigation }) => {
-    return {
-      title: `Quiz`,
-    };
-  };
-
-  state = { question: '', answer: '' };
-
   createCard(key) {
-    //hide keyboard
+    // hide keyboard
     Keyboard.dismiss();
 
     this.props.addNewCard(key, this.state.question, this.state.answer);
@@ -69,7 +61,7 @@ class Quiz extends Component {
   };
 
   toggleQA = () => {
-    if (this.state.currentQuiz.qa == 1) {
+    if (this.state.currentQuiz.qa === 1) {
       this.setState({
         currentQuiz: {
           qa: 0,
@@ -89,20 +81,20 @@ class Quiz extends Component {
   };
 
   correctAnswer = () => {
-    //update score
-    this.myScore++;
+    // update score
+    this.myScore = this.myScore + 1;
 
-    //show next question
+    // show next question
     this.showNextQuiz();
   };
 
   incorrectAnswer = () => {
-    //do nothing just show next question
+    // do nothing just show next question
     this.showNextQuiz();
   };
 
   showNextQuiz = () => {
-    if (this.state.cardIndex == this.state.quizzes.length - 1) {
+    if (this.state.cardIndex === this.state.quizzes.length - 1) {
       this.props.navigation.navigate('QuizResult', {
         currentDeck: this.props.navigation.state.params.currentDeck,
         quizNumber: this.state.quizzes.length,
@@ -123,8 +115,6 @@ class Quiz extends Component {
   };
 
   render() {
-    const currentDeck = this.props.navigation.state.params.currentDeck;
-
     return (
       <View style={myStyles.container}>
         <View>

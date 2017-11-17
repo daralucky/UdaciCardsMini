@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { NavigationActions } from 'react-navigation';
-import { getAllDecks, getSingleDeck } from '../utils/api';
-import CardNew from './CardNew';
+import { View, Text, TouchableOpacity } from 'react-native';
 import myStyles from '../utils/styles';
 
 class DeckDetail extends Component {
@@ -15,7 +12,7 @@ class DeckDetail extends Component {
   };
 
   render() {
-    const currentDeck = this.props.navigation.state.params.currentDeck;
+    const { currentDeck } = this.props.navigation.state.params;
     // console.log('currentDeck:' + JSON.stringify(currentDeck, null, 2));
 
     return (
@@ -43,6 +40,16 @@ class DeckDetail extends Component {
               })}
           >
             <Text style={myStyles.btnText}>Start Quiz</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={myStyles.btnDanger}
+            onPress={() =>
+              this.props.navigation.navigate('Home', {
+                currentDeck,
+              })}
+          >
+            <Text style={myStyles.btnText}>Back to Deck List</Text>
           </TouchableOpacity>
         </View>
       </View>

@@ -1,19 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addNewCard } from '../actions';
 import {
-  View,
   Text,
   TouchableOpacity,
-  StyleSheet,
   TextInput,
   KeyboardAvoidingView,
   Keyboard,
 } from 'react-native';
+import { addNewCard } from '../actions';
 import myStyles from '../utils/styles';
 
 class CardNew extends Component {
-  static navigationOptions = ({ navigation }) => {
+  static navigationOptions = () => {
     return {
       title: `Add Card`,
     };
@@ -22,7 +20,7 @@ class CardNew extends Component {
   state = { question: '', answer: '' };
 
   createCard(key) {
-    //hide keyboard
+    // hide keyboard
     Keyboard.dismiss();
 
     this.props.addNewCard(key, this.state.question, this.state.answer);
@@ -40,8 +38,8 @@ class CardNew extends Component {
   };
 
   render() {
-    const currentDeck = this.props.navigation.state.params.currentDeck;
-    //console.log('currentDeck:' + JSON.stringify(currentDeck, null, 2));
+    const { currentDeck } = this.props.navigation.state.params;
+    // console.log('currentDeck:' + JSON.stringify(currentDeck, null, 2));
     return (
       <KeyboardAvoidingView behavior="padding" style={myStyles.container}>
         <TextInput

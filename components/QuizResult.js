@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { NavigationActions } from 'react-navigation';
-import { getAllDecks, getSingleDeck } from '../utils/api';
-import CardNew from './CardNew';
+import { View, Text, TouchableOpacity } from 'react-native';
 import myStyles from '../utils/styles';
 import { clearLocalNotification, setLocalNotification } from '../utils/helpers';
 
@@ -21,9 +18,11 @@ class QuizResult extends Component {
   }
 
   render() {
-    const currentDeck = this.props.navigation.state.params.currentDeck;
-    const quizNumber = this.props.navigation.state.params.quizNumber;
-    const score = this.props.navigation.state.params.score;
+    const {
+      currentDeck,
+      quizNumber,
+      score,
+    } = this.props.navigation.state.params;
 
     const scoreFormat = Math.ceil(score * 100 / quizNumber);
 

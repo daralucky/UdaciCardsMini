@@ -1,13 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Platform,
-  StatusBar,
-  TouchableOpacity,
-} from 'react-native';
+import { View, StatusBar } from 'react-native';
 import { TabNavigator, StackNavigator } from 'react-navigation';
 import { Constants } from 'expo';
 import configureStore from './store/configureStore';

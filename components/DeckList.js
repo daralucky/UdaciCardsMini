@@ -1,13 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { View, Text, TouchableOpacity, FlatList } from 'react-native';
 import { fetchDecksFromAPI } from '../actions';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  FlatList,
-} from 'react-native';
 import myStyles from '../utils/styles';
 import { clearAllRecordsFromStorage } from '../utils/api';
 
@@ -61,15 +55,11 @@ class DeckList extends Component {
 }
 
 function mapStateToProps(state) {
-  //console.log('state.decks:' + JSON.stringify(state.decks, null, 2));
-
-  let decks = [];
+  const decks = [];
 
   for (const [key, value] of Object.entries(state.decks)) {
     decks.push({ key: key, ...value });
   }
-
-  //console.log('DeckList:' + JSON.stringify(decks, null, 2));
 
   return { decks };
 }
