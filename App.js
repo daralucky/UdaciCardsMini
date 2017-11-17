@@ -1,6 +1,5 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import configureStore from './store/configureStore';
 import {
   StyleSheet,
   Text,
@@ -10,14 +9,16 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { TabNavigator, StackNavigator } from 'react-navigation';
-import * as Color from './utils/colors';
 import { Constants } from 'expo';
+import configureStore from './store/configureStore';
+import * as Color from './utils/colors';
 import DeckList from './components/DeckList';
 import DeckNew from './components/DeckNew';
 import DeckDetail from './components/DeckDetail';
 import CardNew from './components/CardNew';
 import Quiz from './components/Quiz';
 import QuizResult from './components/QuizResult';
+import { setLocalNotification } from './utils/helpers';
 
 function UdaciStatusBar({ backgroundColor, ...props }) {
   return (
@@ -99,6 +100,10 @@ const MainNavigator = StackNavigator(
 const store = configureStore();
 
 export default class App extends React.Component {
+  componentDidMount() {
+    setLocalNotification();
+  }
+
   render() {
     return (
       <Provider store={store}>

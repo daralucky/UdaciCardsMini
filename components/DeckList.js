@@ -19,7 +19,12 @@ function DeckItem({ navigation, deck }) {
       >
         <View style={myStyles.deckItem}>
           <Text style={myStyles.deckTitle}>{deck.title}</Text>
-          <Text>{deck.questions.length} cards</Text>
+          <Text>
+            {typeof deck.questions !== 'undefined'
+              ? deck.questions.length
+              : '0'}{' '}
+            cards
+          </Text>
         </View>
         <View style={myStyles.deckLine} />
       </TouchableOpacity>
