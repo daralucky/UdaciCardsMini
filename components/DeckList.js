@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { View, Text, TouchableOpacity, FlatList } from 'react-native';
 import { fetchDecksFromAPI } from '../actions';
 import myStyles from '../utils/styles';
-import { clearAllRecordsFromStorage } from '../utils/api';
 
 function DeckItem({ navigation, deck }) {
   return (
@@ -43,12 +42,6 @@ class DeckList extends Component {
           renderItem={this.renderItem}
           keyExtractor={(decks, title) => title}
         />
-        <TouchableOpacity
-          style={myStyles.btnDanger}
-          onPress={() => clearAllRecordsFromStorage()}
-        >
-          <Text style={myStyles.btnText}>Delete All Data</Text>
-        </TouchableOpacity>
       </View>
     );
   }

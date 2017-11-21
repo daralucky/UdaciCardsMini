@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
+import { FontAwesome, Ionicons } from '@expo/vector-icons';
 import myStyles from '../utils/styles';
 import { clearLocalNotification, setLocalNotification } from '../utils/helpers';
 
@@ -41,7 +42,9 @@ class QuizResult extends Component {
                 currentDeck,
               })}
           >
-            <Text style={myStyles.btnText}>Restart Quiz</Text>
+            <Text style={myStyles.btnText}>
+              <FontAwesome name="puzzle-piece" size={20} /> Restart Quiz
+            </Text>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -51,7 +54,9 @@ class QuizResult extends Component {
                 currentDeck,
               })}
           >
-            <Text style={myStyles.btnText}>Back to Deck</Text>
+            <Text style={myStyles.btnText}>
+              <Ionicons name="md-arrow-round-back" size={20} /> Back to Deck
+            </Text>
           </TouchableOpacity>
         </View>
       </View>

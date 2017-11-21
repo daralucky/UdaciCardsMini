@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
+import { FontAwesome, Ionicons } from '@expo/vector-icons';
 import myStyles from '../utils/styles';
 
 class DeckDetail extends Component {
@@ -29,7 +30,10 @@ class DeckDetail extends Component {
                 currentDeck,
               })}
           >
-            <Text style={myStyles.btnText}> Add Card</Text>
+            <Text style={myStyles.btnText}>
+              {' '}
+              <Ionicons name="md-add" size={20} /> Add Card
+            </Text>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -39,17 +43,18 @@ class DeckDetail extends Component {
                 currentDeck,
               })}
           >
-            <Text style={myStyles.btnText}>Start Quiz</Text>
+            <Text style={myStyles.btnText}>
+              <FontAwesome name="puzzle-piece" size={20} /> Start Quiz
+            </Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={myStyles.btnDanger}
-            onPress={() =>
-              this.props.navigation.navigate('Home', {
-                currentDeck,
-              })}
+            onPress={() => this.props.navigation.navigate('Home', {})}
           >
-            <Text style={myStyles.btnText}>Back to Deck List</Text>
+            <Text style={myStyles.btnText}>
+              <FontAwesome name="home" size={20} /> Home
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
